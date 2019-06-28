@@ -1,5 +1,6 @@
 package com.salesapi.demo.controller;
 
+import com.salesapi.demo.NotFoundException;
 import com.salesapi.demo.model.Course;
 import com.salesapi.demo.model.University;
 import com.salesapi.demo.repository.CourseRepository;
@@ -31,12 +32,12 @@ public class UniversityController {
 
     @GetMapping(value = "{id}")
     private University findOneById(@PathVariable Long id){
-        Optional<University> university = universityRepository.findById(id);
-        if(university.isPresent()){
-            return university.get();
-        }else{
-            return null;
-        }
+        University university = universityRepository.findById(id).orElseThrow(()->new NotFoundException("No university with id" + id + "was found"));
+//        if(university.isPresent()){
+            return university;
+//        }else{
+//            return null;
+//        }
     }
 
     @GetMapping(value = "{id}/courses")
