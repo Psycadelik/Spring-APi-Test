@@ -1,19 +1,18 @@
 package com.salesapi.demo.controller;
 
 
+import com.salesapi.demo.LimitExceedException;
+import com.salesapi.demo.NotFoundException;
 import com.salesapi.demo.model.Course;
 import com.salesapi.demo.repository.CourseRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import javassist.NotFoundException;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "course")
+@RequestMapping(value = "courses",method = RequestMethod.GET)
 public class CourseController {
     private final CourseRepository courseRepository;
 
@@ -28,12 +27,36 @@ public class CourseController {
 
     @GetMapping(value = "{id}")
     private Course findOneById(@PathVariable Long id){
-        Optional<Course> course = courseRepository.findById(id);
-        if(course.isPresent()){
-            return course.get();
+        Course course = courseRepository.findById(id).orElseThrow(()->new NotFoundException("No course with id " + id + " was found"));
+//        if(course.isPresent()){
+            return course;
+//        }else{
+//            return null;
+//        }
+    }
+
+    @GetMapping(value = "{id}/add/{enrollment}")
+    private Course findOneById(@PathVariable Long id, @PathVariable Integer enrollment){
+        //Step 1. check if maximum enrollment exceeds 7
+//        int enroll = Integer.valueOf(enrollment);
+
+        int enrol = 0;
+        System.out.println("enrollment " + enrollment);
+
+        if(enrollment <= 7){
+            Course course =  courseRepository.findById(id).orElseThrow(()->new NotFoundException("No course with id " + id + " was found"));;
+            enrol = enrollment + course.getMaximum_enrollment();
+
+            course.setMaximum_enrollment(enrol);
+            courseRepository.save(course);
+
+            return course;
+
         }else{
-            return null;
+            throw new LimitExceedException("Limit exceeded");
         }
+
+
     }
 
 }

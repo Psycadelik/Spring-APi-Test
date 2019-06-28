@@ -18,13 +18,17 @@ public class Course {
     @Column(name = "course_code")
     private String course_code;
 
+    @Column(name = "maximum_enrollment")
+    private int maximum_enrollment;
+
     @ManyToOne
     @JoinColumn(name = "university_id")
     private University university;
 
-    public Course(String course_name, String faculty, String course_code, University university){
+    public Course(String course_name, String faculty, String course_code, int max_enrollment,University university){
         this.course_code = course_code;
         this.course_name = course_name;
+        this.maximum_enrollment = max_enrollment;
         this.faculty = faculty;
         this.university = university;
     }
@@ -69,5 +73,13 @@ public class Course {
 
     public void setCourse_code(String course_code) {
         this.course_code = course_code;
+    }
+
+    public int getMaximum_enrollment() {
+        return maximum_enrollment;
+    }
+
+    public void setMaximum_enrollment(int maximum_enrollment) {
+        this.maximum_enrollment = maximum_enrollment;
     }
 }

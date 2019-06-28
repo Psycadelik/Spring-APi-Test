@@ -31,10 +31,10 @@ public class DummyData implements CommandLineRunner {
         University uon = new University("UON","CBD");
         universityRepository.save(uon);
 
-        Course course1 = new Course("API","FIT","BBT009", strathmore);
+        Course course1 = new Course("API","FIT","BBT009", 7,strathmore);
         courseRepository.save(course1);
 
-        Course course2 = new Course("Automata", "BIT", "008UI",jkuat);
+        Course course2 = new Course("Automata", "BIT", "008UI",7,jkuat);
         courseRepository.save(course2);
     }
 
