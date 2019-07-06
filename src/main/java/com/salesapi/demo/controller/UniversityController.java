@@ -67,7 +67,7 @@ public class UniversityController {
         return courseRepository.findByUniversityId(id);
     }
 
-    @GetMapping(value = "{id}/courses/{id}")
+    @GetMapping(value = "{id}/courses/{courseId}")
     public Course findOneById(@PathVariable Long id, @PathVariable Long courseId){
          Course course =  courseRepository.findById(courseId).orElseThrow(()->new NotFoundException("No course with id " + courseId + " was found"));
 
@@ -80,7 +80,7 @@ public class UniversityController {
     }
 
 
-    @PatchMapping(value = "{id}/courses/{id}")
+    @PatchMapping(value = "{id}/courses/{courseId}")
     public Course updateCourse(@PathVariable Long id,@RequestBody Course course,@PathVariable Long courseId){
         Course foundCourse =  courseRepository.findById(courseId).orElseThrow(()->new NotFoundException("No course with id " + id + " was found"));
 
@@ -93,7 +93,7 @@ public class UniversityController {
         return courseRepository.save(foundCourse);
     }
 
-    @DeleteMapping(value = "{id}/courses/{id}")
+    @DeleteMapping(value = "{id}/courses/{courseId}")
     public void deleteCourse(@PathVariable Long id,@RequestBody Course course,@PathVariable Long courseId){
         courseRepository.deleteById(courseId);
     }
