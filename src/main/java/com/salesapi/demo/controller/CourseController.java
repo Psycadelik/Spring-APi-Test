@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "courses",method = RequestMethod.GET)
+@RequestMapping(value = "courses")
 public class CourseController {
     private final CourseRepository courseRepository;
 
@@ -41,7 +41,7 @@ public class CourseController {
 //        int enroll = Integer.valueOf(enrollment);
 
         int enrol = 0;
-        System.out.println("enrollment " + enrollment);
+//        System.out.println("enrollment " + enrollment);  //Log request params
 
         if(enrollment <= 7){
             Course course =  courseRepository.findById(id).orElseThrow(()->new NotFoundException("No course with id " + id + " was found"));;
@@ -58,5 +58,29 @@ public class CourseController {
 
 
     }
+
+    @PostMapping
+    public Course createCourse(@RequestBody Course course){
+        return courseRepository.save(course);
+    }
+
+    @PatchMapping(value = "{id}")
+    public Course updateCourse(@PathVariable Long id, @RequestBody Course course){
+        Course foundcourse = findOneById(id);
+
+        foundcourse.setCourse_name(course.getCourse_name());
+        foundcourse.setCourse_code(course.getCourse_code());
+        foundcourse.setFaculty(course.getFaculty());
+        foundcourse.setUniversity(course.getUniversity());
+        foundcourse.setMaximum_enrollment(course.getMaximum_enrollment());
+
+        return courseRepository.save(foundcourse);
+    }
+
+    @DeleteMapping(value = "{id}")
+    public void deleteCourse(@PathVariable Long id){
+        courseRepository.deleteById(id);
+    }
+
 
 }
