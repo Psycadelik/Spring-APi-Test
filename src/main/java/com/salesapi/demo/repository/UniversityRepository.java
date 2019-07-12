@@ -9,4 +9,9 @@ public interface UniversityRepository extends JpaRepository<University,Long> {
 
     //select * from universities
     List<University> findAll();
+
+    List<University> findByNameStartingWith(String name);
+
+    List<University> findByNameStartingWithAndLocation(String name, String location);
+
 }

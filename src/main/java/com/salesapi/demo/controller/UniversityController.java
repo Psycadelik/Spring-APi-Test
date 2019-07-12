@@ -98,7 +98,20 @@ public class UniversityController {
         courseRepository.deleteById(courseId);
     }
 
+    @GetMapping(value = "search")
+    public List<University> search(@RequestParam String name,@RequestParam(required = false) String location){
+        if(location != null)
+            return universityRepository.findByNameStartingWithAndLocation(name,location);
+        else
+            return universityRepository.findByNameStartingWith(name);
+    }
 
-
+//    @GetMapping(value = "multisearch")
+//    public List<University> search(@RequestParam String name, @RequestParam(required = false) String location){
+//        if(location != null)
+//            return universityRepository.findByNameStartingWithAndLocation(name,location);
+//        else
+//            return universityRepository.findByNameStartingWith(name);
+//    }
 
 }
