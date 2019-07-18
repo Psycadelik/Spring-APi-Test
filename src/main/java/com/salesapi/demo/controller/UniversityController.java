@@ -99,11 +99,12 @@ public class UniversityController {
     }
 
     @GetMapping(value = "search")
-    public List<University> search(@RequestParam String name,@RequestParam(required = false) String location,@RequestParam(required = false) int capacity,@RequestParam(required = false) double latitude, @RequestParam(required = false) double longitude){
+    public List<University> search(@RequestParam(required = false) String name,@RequestParam(required = false) String location,@RequestParam(required = false) int capacity,@RequestParam(required = false, defaultValue = "0") double latitude, @RequestParam(required = false, defaultValue = "0") double longitude){
         if(location != null) {
             return universityRepository.findByNameStartingWithAndLocation(name, location);
         }else if(capacity >= 2000 && capacity <= 5000) {
-            return universityRepository.findByNameStartingWithAndCapacity(name, capacity);
+//            return universityRepository.findByNameStartingWithAndCapacity(name, capacity);
+            return universityRepository.findByCapacity(capacity);
         }else if(capacity < 3000) {
             return universityRepository.findByNameStartingWithAndCapacity(name, capacity);
         }else if(capacity != 4000) {
