@@ -14,4 +14,8 @@ public interface UniversityRepository extends JpaRepository<University,Long> {
 
     List<University> findByNameStartingWithAndLocation(String name, String location);
 
+    List<University> findByNameStartingWithAndCapacity(String name, int capacity);
+
+    List<University> findByNameStartingWithAndLatitudeAndLongitude(String name, double latitude, double longitude);
+
 }

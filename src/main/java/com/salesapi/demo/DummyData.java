@@ -22,13 +22,13 @@ public class DummyData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        University jkuat = new University("JKUAT","juja");
+        University jkuat = new University("JKUAT","juja", 3000, 0.314, 34.5678);
 
-        University strathmore = new University("Strathmore", "OleSangale");
+        University strathmore = new University("Strathmore", "OleSangale", 4000, 0, 0);
 
         universityRepository.saveAll(Arrays.asList(strathmore,jkuat));
 
-        University uon = new University("UON","CBD");
+        University uon = new University("UON","CBD", 2500, 0.2678, 35.678);
         universityRepository.save(uon);
 
         Course course1 = new Course("API","FIT","BBT009", 7,strathmore);
