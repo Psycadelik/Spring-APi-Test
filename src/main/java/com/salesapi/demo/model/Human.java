@@ -50,4 +50,8 @@ public class Human {
     public void setCourses(Set<Course> courses) {
         this.courses = courses;
     }
+
+    public void addCourse(Course course){
+        courses.add(course);
+    }
 }

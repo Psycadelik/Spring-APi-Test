@@ -47,6 +47,8 @@ public class DummyData implements CommandLineRunner {
 
         Course course2 = new Course("Automata", "BIT", "008UI",7,jkuat);
         courseRepository.save(course2);
+
+        Human student = humanRepository.save(new Human("Adrian"));
     }
 
 

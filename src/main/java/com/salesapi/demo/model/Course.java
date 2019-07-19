@@ -3,6 +3,8 @@ package com.salesapi.demo.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="Courses")
@@ -27,6 +29,9 @@ public class Course {
     @JsonIgnore
     @JoinColumn(name = "university_id")
     private University university;
+
+    @ManyToMany(mappedBy = "courses")
+    private Set<Human> students = new HashSet<>();
 
     public Course(String course_name, String faculty, String course_code, int max_enrollment,University university){
         this.course_code = course_code;
@@ -84,5 +89,13 @@ public class Course {
 
     public void setMaximum_enrollment(int maximum_enrollment) {
         this.maximum_enrollment = maximum_enrollment;
+    }
+
+    public Set<Human> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<Human> students) {
+        this.students = students;
     }
 }
