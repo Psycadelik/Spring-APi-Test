@@ -2,6 +2,7 @@ package com.salesapi.demo.model;
 
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "humans")
@@ -11,6 +12,12 @@ public class Human {
     private Long id;
 
     private String name;
+
+    @ManyToMany
+    @JoinTable(name = "student_courses",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id"))
+    private Set<Course> courses;
 
     public Human(String name){
         this.name = name;
@@ -34,5 +41,13 @@ public class Human {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
     }
 }
