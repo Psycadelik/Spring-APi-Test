@@ -104,13 +104,19 @@ public class UniversityController {
             return universityRepository.findByNameStartingWithAndLocation(name, location);
         }else if(capacity >= 2000 && capacity <= 5000) {
 //            return universityRepository.findByNameStartingWithAndCapacity(name, capacity);
-            return universityRepository.findByCapacity(capacity);
+            int from =2000;
+            int to=5000;
+            return universityRepository.findByCapacityBetween(from,to);
+//            return universityRepository.findByCapacity(capacity);
         }else if(capacity < 3000) {
-            return universityRepository.findByNameStartingWithAndCapacity(name, capacity);
+            return universityRepository.findByCapacityLessThan(capacity);
+//            return universityRepository.findByNameStartingWithAndCapacity(name, capacity);
         }else if(capacity != 4000) {
-            return universityRepository.findByNameStartingWithAndCapacity(name, capacity);
+            return universityRepository.findByCapacityIsNot(capacity);
+//            return universityRepository.findByNameStartingWithAndCapacity(name, capacity);
         }else if(latitude != 0 && longitude != 0) {
-            return universityRepository.findByNameStartingWithAndLatitudeAndLongitude(name, latitude, longitude);
+            return universityRepository.findByLatitudeIsNotAndLongitudeIsNot(latitude, longitude);
+//            return universityRepository.findByNameStartingWithAndLatitudeAndLongitude(name, latitude, longitude);
         }else
             return universityRepository.findByNameStartingWith(name);
     }

@@ -19,7 +19,13 @@ public interface UniversityRepository extends JpaRepository<University,Long> {
 
     List<University> findByCapacity(int capacity);
 
-//    List<University> findByCapacityIsBetween(int capacity);
+    List<University> findByCapacityBetween(int from, int to);
+
+    List<University> findByCapacityLessThan(int value);
+
+    List<University> findByCapacityIsNot(int value);
+
+    List<University> findByLatitudeIsNotAndLongitudeIsNot(double lat, double longi);
 
     List<University> findByNameStartingWithAndLatitudeAndLongitude(String name, double latitude, double longitude);
 
