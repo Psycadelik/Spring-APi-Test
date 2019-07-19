@@ -49,6 +49,13 @@ public class DummyData implements CommandLineRunner {
         courseRepository.save(course2);
 
         Human student = humanRepository.save(new Human("Adrian"));
+        student.addCourse(course1);
+        student.addCourse(course2);
+        humanRepository.save(student);
+
+        Human student2 = humanRepository.save(new Human("Joy"));
+        student2.addCourse(course1);
+        humanRepository.save(student2);
     }
 
 
