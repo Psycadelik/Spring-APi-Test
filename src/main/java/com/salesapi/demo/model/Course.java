@@ -1,5 +1,7 @@
 package com.salesapi.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -22,6 +24,7 @@ public class Course {
     private int maximum_enrollment;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "university_id")
     private University university;
 

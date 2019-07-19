@@ -2,6 +2,7 @@ package com.salesapi.demo.model;
 
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="universities")
@@ -24,6 +25,13 @@ public class University {
 
     @Column(name = "longitude")
     private double longitude;
+
+    @OneToMany(mappedBy = "university")
+    private List<Course> courses;
+
+    @OneToOne
+    @JoinColumn(name = "chancellor_id")
+    private Human chancellor;
 
     public University(String name, String location, int capacity, double latitude, double longitude) {
         this.name = name;
@@ -81,5 +89,21 @@ public class University {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
+    public Human getChancellor() {
+        return chancellor;
+    }
+
+    public void setChancellor(Human chancellor) {
+        this.chancellor = chancellor;
     }
 }
